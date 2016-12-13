@@ -1,15 +1,42 @@
+let ActionsSdkAssistant = require('actions-on-google').ActionsSdkAssistant;
 var express = require('express')
 var app = express()
+app.set('port', (process.env.PORT || 8080));
+app.use(bodyParser.json({type: 'application/json'}));
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
+app.post('/', function (request, response) {
+  console.log('handle post');
+  const assistant = new ActionsSdkAssistant({request: request, response: response});
 
+  function mainIntent (assistant) {
+    console.log('mainIntent');
+    let inputPrompt = assistant.buildInputPrompt(true, '<speak>Hi! <break time="1"/> ' +
+          'I can read out an ordinal like ' +
+          '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>',
+          ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
+    assistant.ask(inputPrompt);
+  }
 
-app.get('/webhook', function (req, res) {
-  console.log('Webhook Received')
-})
+  function rawInput (assistant) {
+    console.log('rawInput');
+    if (assistant.getRawInput() === 'bye') {
+      assistant.tell('Goodbye!');
+    } else {
+      let inputPrompt = assistant.buildInputPrompt(true, '<speak>You said, <say-as interpret-as="ordinal">' +
+        assistant.getRawInput() + '</say-as></speak>',
+          ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
+      assistant.ask(inputPrompt);
+    }
+  }
 
-app.listen(8080, function () {
-  console.log('Example app listening on port 80!')
-})
+  let actionMap = new Map();
+  actionMap.set(assistant.StandardIntents.MAIN, mainIntent);
+  actionMap.set(assistant.StandardIntents.TEXT, rawInput);
+
+  assistant.handleRequest(actionMap);
+});
+
+let server = app.listen(app.get('port'), function () {
+  console.log('App listening on port %s', server.address().port);
+  console.log('Press Ctrl+C to quit.');
+});
