@@ -1,3 +1,5 @@
+'use strict';
+
 let ActionsSdkAssistant = require('actions-on-google').ActionsSdkAssistant;
 var express = require('express')
 var app = express()
@@ -31,7 +33,7 @@ app.post('/', function (request, response) {
   }
 
   let actionMap = new Map();
-  actionMap.set(assistant.StandardIntents.MAIN, mainIntent);
+  actionMap.set("MAIN", mainIntent);
   actionMap.set(assistant.StandardIntents.TEXT, rawInput);
 
   assistant.handleRequest(actionMap);
