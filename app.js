@@ -17,10 +17,10 @@ app.post('/webhook', function (request, response) {
 
 function employeeIntent (assistant) {
     var newurl = 'http://api.namegame.willowtreemobile.com/';
-    var https = require('https');
+    var https = require('http');
 	var optionsget = {
     	host : 'api.namegame.willowtreemobile.com',
-    	port : 443,
+    	port : 80,
 		method : 'GET' // do GET
 	};
 	var reqGet = https.request(optionsget, function(res) {
