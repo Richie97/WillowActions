@@ -24,7 +24,7 @@ app.post('/webhook', function (request, response) {
                         console.log(body);
                         console.log(Object.keys(body).length);
                         var num = Object.keys(body).length;
-                        assistant.tell("The number of employees at WillowTree is %s", num);
+                        assistant.tell("The number of employees at WillowTree is " + num);
                     }
                 });
         }
