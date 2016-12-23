@@ -19,7 +19,7 @@ app.post('/webhook', function (request, response) {
             case EMPLOYEES_INTENT:
                 let newurl = 'http://api.namegame.willowtreemobile.com/';
                 let request = require('request');
-                request(newurl, function (error, response, body) {
+                return request(newurl, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
                         console.log(body);
                         console.log(Object.keys(body).length);
@@ -27,7 +27,6 @@ app.post('/webhook', function (request, response) {
                         assistant.tell("The number of employees at WillowTree is %s", num);
                     }
                 });
-            break;
         }
     }
     assistant.handleRequest(responseHandler);
