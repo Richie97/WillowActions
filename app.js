@@ -1,42 +1,35 @@
 'use strict';
 
-let ActionsSdkAssistant = require('actions-on-google').ActionsSdkAssistant;
+let ApiAiAssistant = require('actions-on-google').ApiAiAssistant;
 var express = require('express')
 var app = express()
 let bodyParser = require('body-parser');
 app.set('port', (process.env.PORT || 8080));
-app.use(bodyParser.json({type: 'application/json'}));
+app.set('trust proxy', true);
+app.use(function (req, res, next) {
+  res.header("content-type",'application/json');
+  next();
+});
+
+
+const EMPLOYEES_INTENT = 'input.employees';
+
+app.post('/webhook', function (request, response) {
+	const assistant = new ApiAiAssistant({request: request, response: response});
+	assistant.tell('The number of employees at WillowTree is 18,983');
+	let actionMap = new Map();
+	actionMap.set(EMPLOYEES_INTENT, employeeIntent);
+	assistant.handleRequest(actionMap);
+});
+
+function employeeIntent (assistant) {
+  assistant.ask('The number of employees at WillowTree is 18,983');
+}
+
 
 app.post('/', function (request, response) {
-  console.log('handle post');
-  const assistant = new ActionsSdkAssistant({request: request, response: response});
-
-  function mainIntent (assistant) {
-    console.log('mainIntent');
-    let inputPrompt = assistant.buildInputPrompt(true, '<speak>Hi! <break time="1"/> ' +
-          'I can read out an ordinal like ' +
-          '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>',
-          ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
-    assistant.ask(inputPrompt);
-  }
-
-  function rawInput (assistant) {
-    console.log('rawInput');
-    if (assistant.getRawInput() === 'bye') {
-      assistant.tell('Goodbye!');
-    } else {
-      let inputPrompt = assistant.buildInputPrompt(true, '<speak>You said, <say-as interpret-as="ordinal">' +
-        assistant.getRawInput() + '</say-as></speak>',
-          ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
-      assistant.ask(inputPrompt);
-    }
-  }
-
-  let actionMap = new Map();
-  actionMap.set("MAIN", mainIntent);
-  actionMap.set(assistant.StandardIntents.TEXT, rawInput);
-
-  assistant.handleRequest(actionMap);
+	const assistant = new ApiAiAssistant({request: request, response: response});
+	assistant.tell("You're in the wrong place.");
 });
 
 let server = app.listen(app.get('port'), function () {
