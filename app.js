@@ -31,7 +31,7 @@ app.post('/webhook', function (request, response) {
         }
     }
     assistant.handleRequest(responseHandler);
-}
+});
 
 let server = app.listen(app.get('port'), function () {
   console.log('App listening on port %s', server.address().port);
