@@ -30,7 +30,7 @@ app.post('/webhook', function (request, response) {
                     console.log("got response back"); 
                     if (!error && response.statusCode == 200) {
                         console.log(body) 
-                        var num = Object.keys(body.shareInfo[i]).length;
+                        var num = Object.keys(body).length;
                         assistant.tell("The number of employees at WillowTree is %s", num);
                     }
                 });
