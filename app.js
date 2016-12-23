@@ -14,7 +14,7 @@ app.post('/webhook', function (req, res) {
 	let actionMap = new Map();
 	actionMap.set(EMPLOYEES_INTENT, employeeIntent);
 	console.log("About to Handle Request"); 
-	console.log(req); 
+	console.log(req.body); 
 	assistant.handleRequest(actionMap);
 	console.log("Request Handled"); 
 });
