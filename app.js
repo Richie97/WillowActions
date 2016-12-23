@@ -28,8 +28,8 @@ function employeeIntent (assistant) {
 
 
 app.post('/', function (request, response) {
-	const assistant = new ApiAiAssistant({request: request, response: response});
-	assistant.tell("You're in the wrong place.");
+	// const assistant = new ApiAiAssistant({request: request, response: response});
+	// assistant.tell("You're in the wrong place.");
 });
 
 let server = app.listen(app.get('port'), function () {
