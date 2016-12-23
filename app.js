@@ -5,7 +5,6 @@ let express = require('express')
 let app = express()
 let bodyParser = require('body-parser');
 app.set('port', (process.env.PORT || 8080));
-app.use(bodyParser.json({type: 'application/json'}));
 
 
 const EMPLOYEES_INTENT = 'input.employees';
