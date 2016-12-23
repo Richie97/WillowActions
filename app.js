@@ -21,14 +21,9 @@ app.post('/webhook', function (request, response) {
                 let request = require('request');
                 return request(newurl, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
-                        console.log(body);
-                        console.log(body.length);
-                        console.log(typeof body);
                         var obj = JSON.parse(body);
                         var length = Object.keys(obj).length;
-                        console.log(length);
-                        var num = body.length;
-                        assistant.tell("The number of employees at WillowTree is " + num);
+                        assistant.tell("The number of employees at WillowTree is " + length);
                     }
                 });
         }
