@@ -23,6 +23,7 @@ app.post('/webhook', function (request, response) {
                     if (!error && response.statusCode == 200) {
                         console.log(body);
                         console.log(body.length);
+                        console.log(typeof body);
                         var obj = JSON.parse(body);
                         var length = Object.keys(obj).length;
                         console.log(length);
