@@ -22,8 +22,8 @@ app.post('/webhook', function (request, response) {
                 return request(newurl, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
                         console.log(body);
-                        console.log(Object.keys(body).length);
-                        var num = Object.keys(body).length;
+                        console.log(body.length);
+                        var num = body.length;
                         assistant.tell("The number of employees at WillowTree is " + num);
                     }
                 });
