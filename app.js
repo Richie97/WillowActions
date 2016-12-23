@@ -17,21 +17,14 @@ app.post('/webhook', function (request, response) {
 
 function employeeIntent (assistant) {
     var newurl = 'http://api.namegame.willowtreemobile.com/';
-    var https = require('http');
-	var optionsget = {
-    	host : 'api.namegame.willowtreemobile.com',
-    	port : 80,
-		method : 'GET' // do GET
-	};
-	var reqGet = https.request(optionsget, function(res) {
-    	console.log("statusCode: ", res.statusCode);
-    	res.on('data', function(d) {
-        	console.info('GET result:\n');
-        	process.stdout.write(d);
-        	var num = Object.keys(d.shareInfo[i]).length;
+    var request = require('request');
+	request(newurl, function (error, response, body) {
+  		if (!error && response.statusCode == 200) {
+    		console.log(body) 
+    		var num = Object.keys(d.shareInfo[i]).length;
         	assistant.tell("The number of employees at WillowTree is %s", num);
-    	});	
-	});	
+  		}
+	});
 }
 
 
