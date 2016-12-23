@@ -23,7 +23,7 @@ app.post('/webhook', function (request, response) {
                     if (!error && response.statusCode == 200) {
                         var obj = JSON.parse(body);
                         var length = Object.keys(obj).length;
-                        assistant.tell('The number of employees at WillowTree is " + length + ". <break time="1"/> At least that\'s how many people are on the website.');
+                        assistant.tell('The number of employees at WillowTree is ' + length + '. <break time="1"/> At least that\'s how many people are on the website.');
                     }
                 });
         }
