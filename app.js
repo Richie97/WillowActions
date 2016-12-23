@@ -8,17 +8,22 @@ app.set('port', (process.env.PORT || 8080));
 
 const EMPLOYEES_INTENT = 'input.employees';
 
-app.post('/webhook', function (request, response) {
-	const assistant = new ApiAiAssistant({request: request, response: response});
+app.post('/webhook', function (req, res) {
+	const assistant = new ApiAiAssistant({request: req, response: res});
+	console.log("Assistant Created"); 
 	let actionMap = new Map();
 	actionMap.set(EMPLOYEES_INTENT, employeeIntent);
+	console.log("About to Handle Request"); 
 	assistant.handleRequest(actionMap);
+	console.log("Request Handled"); 
 });
 
 function employeeIntent (assistant) {
+	console.log("In Employee Intent"); 
     var newurl = 'http://api.namegame.willowtreemobile.com/';
     var request = require('request');
 	request(newurl, function (error, response, body) {
+		console.log("got response back"); 
   		if (!error && response.statusCode == 200) {
     		console.log(body) 
     		var num = Object.keys(d.shareInfo[i]).length;
