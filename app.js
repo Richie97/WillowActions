@@ -3,11 +3,9 @@
 let ApiAiAssistant = require('actions-on-google').ApiAiAssistant;
 var express = require('express')
 var app = express()
-let bodyParser = require('body-parser');
 app.set('port', (process.env.PORT || 8080));
-app.set('trust proxy', true);
 app.use(function (req, res, next) {
-  res.header("content-type",'application/json');
+  res.header("content-type","application/json");
   next();
 });
 
@@ -16,14 +14,14 @@ const EMPLOYEES_INTENT = 'input.employees';
 
 app.post('/webhook', function (request, response) {
 	const assistant = new ApiAiAssistant({request: request, response: response});
-	assistant.tell('The number of employees at WillowTree is 18,983');
+	assistant.tell("The number of employees at WillowTree is 18,983");
 	let actionMap = new Map();
 	actionMap.set(EMPLOYEES_INTENT, employeeIntent);
 	assistant.handleRequest(actionMap);
 });
 
 function employeeIntent (assistant) {
-  assistant.ask('The number of employees at WillowTree is 18,983');
+  assistant.ask("The number of employees at WillowTree is 18,983");
 }
 
 
