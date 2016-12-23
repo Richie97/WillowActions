@@ -10,14 +10,28 @@ const EMPLOYEES_INTENT = 'input.employees';
 
 app.post('/webhook', function (request, response) {
 	const assistant = new ApiAiAssistant({request: request, response: response});
-	assistant.tell("The number of employees at WillowTree is 18,983");
 	let actionMap = new Map();
 	actionMap.set(EMPLOYEES_INTENT, employeeIntent);
 	assistant.handleRequest(actionMap);
 });
 
 function employeeIntent (assistant) {
-  assistant.ask("The number of employees at WillowTree is 18,983");
+    var newurl = 'http://api.namegame.willowtreemobile.com/';
+    var https = require('https');
+	var optionsget = {
+    	host : 'api.namegame.willowtreemobile.com',
+    	port : 443,
+		method : 'GET' // do GET
+	};
+	var reqGet = https.request(optionsget, function(res) {
+    	console.log("statusCode: ", res.statusCode);
+    	res.on('data', function(d) {
+        	console.info('GET result:\n');
+        	process.stdout.write(d);
+        	var num = Object.keys(d.shareInfo[i]).length;
+        	assistant.tell("The number of employees at WillowTree is %s", num);
+    	});	
+	});	
 }
 
 
