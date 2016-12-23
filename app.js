@@ -4,10 +4,6 @@ let ApiAiAssistant = require('actions-on-google').ApiAiAssistant;
 var express = require('express')
 var app = express()
 app.set('port', (process.env.PORT || 8080));
-app.use(function (req, res, next) {
-  res.header("content-type","application/json");
-  next();
-});
 
 
 const EMPLOYEES_INTENT = 'input.employees';
