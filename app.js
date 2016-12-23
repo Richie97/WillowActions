@@ -28,29 +28,10 @@ app.post('/webhook', function (request, response) {
                     }
                 });
             break;
+        }
     }
     assistant.handleRequest(responseHandler);
 }
-
-// function employeeIntent (assistant) {
-// 	console.log("In Employee Intent"); 
-//     let newurl = 'http://api.namegame.willowtreemobile.com/';
-//     let request = require('request');
-// 	request(newurl, function (error, response, body) {
-// 		console.log("got response back"); 
-//   		if (!error && response.statusCode == 200) {
-//     		console.log(body) 
-//     		var num = Object.keys(d.shareInfo[i]).length;
-//         	assistant.tell("The number of employees at WillowTree is %s", num);
-//   		}
-// 	});
-// }
-
-
-app.post('/', function (request, response) {
-	// const assistant = new ApiAiAssistant({request: request, response: response});
-	// assistant.tell("You're in the wrong place.");
-});
 
 let server = app.listen(app.get('port'), function () {
   console.log('App listening on port %s', server.address().port);
