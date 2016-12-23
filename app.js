@@ -8,7 +8,7 @@ app.set('port', (process.env.PORT || 8080));
 app.use(bodyParser.json({type: 'application/json'}));
 
 
-const EMPLOYEES_INTENT = 'input.employees';
+const EMPLOYEES_INTENT = 'assistant.intent.action.TEXT';
 
 app.post('/webhook', function (request, response) {
 	const assistant = new ApiAiAssistant({request: request, response: response});
