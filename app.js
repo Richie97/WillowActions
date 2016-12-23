@@ -5,6 +5,7 @@ let express = require('express')
 let app = express()
 let bodyParser = require('body-parser');
 app.set('port', (process.env.PORT || 8080));
+app.use(bodyParser.json({type: 'application/json'}));
 
 
 const EMPLOYEES_INTENT = 'input.employees';
@@ -30,9 +31,6 @@ app.post('/webhook', function (request, response) {
     }
     assistant.handleRequest(responseHandler);
 }
-assistant.handleRequest(responseHandler);
-	console.log("Request Handled"); 
-});
 
 // function employeeIntent (assistant) {
 // 	console.log("In Employee Intent"); 
