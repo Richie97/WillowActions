@@ -27,7 +27,7 @@ app.post('/webhook', function (request, response) {
                     }
                 });
                 default: 
-                    return assistant.tell('<speak>I\'m not sure what you mean.');
+                    return assistant.tell('<speak>I\'m not sure what you mean.</speak>');
     }
     assistant.handleRequest(responseHandler);
 });
