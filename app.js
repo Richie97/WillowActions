@@ -26,7 +26,8 @@ app.post('/webhook', function (request, response) {
                         assistant.tell('<speak>The number of employees at WillowTree is ' + length + '. <break time="1"/> At least that\'s how many people are on the website.</speak>');
                     }
                 });
-        }
+                default: 
+                    return assistant.tell('<speak>I\'m not sure what you mean.');
     }
     assistant.handleRequest(responseHandler);
 });
